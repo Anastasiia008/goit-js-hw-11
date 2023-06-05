@@ -26,7 +26,7 @@ async function onFormSubmit(evt) {
   clearGalleryContainer();
   pixabayApiService.resetPage();
 
-  pixabayApiService.searchQuery = evt.target.elements.searchQuery.value;
+  pixabayApiService.searchQuery = evt.target.elements.searchQuery.value.trim();
 
   try {
     const data = await pixabayApiService.fetchImage();
