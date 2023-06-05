@@ -26,7 +26,14 @@ async function onFormSubmit(evt) {
   clearGalleryContainer();
   pixabayApiService.resetPage();
 
-  pixabayApiService.searchQuery = evt.target.elements.searchQuery.value.trim();
+  const searchQuery = evt.target.elements.searchQuery.value.trim();
+  if (searchQuery === '') {
+    Notify.warning('Please, enter something.');
+    loadMoreBtn.classList.add('is-hidden');
+    return;
+  }
+
+  pixabayApiService.searchQuery = searchQuery;
 
   try {
     const data = await pixabayApiService.fetchImage();
@@ -42,7 +49,7 @@ async function onFormSubmit(evt) {
       Notify.warning('Please, enter something.');
       loadMoreBtn.classList.add('is-hidden');
       return;
-    }
+    } 
 
     Notify.success(`Hooray! We found ${data.totalHits} images.`);
     createGalleryMarkup(data.hits);
