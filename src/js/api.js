@@ -1,10 +1,9 @@
 import axios from 'axios';
 
-const API_KEY = '37015627-a7b00f6a8ef807ae57085c4f8';
-const URL = 'https://pixabay.com/api/';
-
 export default class PixabayApiService {
     constructor() {
+    this.key = '37015627-a7b00f6a8ef807ae57085c4f8';
+    this.baseURL = 'https://pixabay.com/api/';
     this.searchQuery = '';
     this.page = 1;
     this.perPage = 40;
@@ -12,7 +11,7 @@ export default class PixabayApiService {
 
 async fetchImage() {
     const { data } = await axios.get(
-        `${URL}?key=${API_KEY}&q=${this.searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&per_page=${this.perPage}&page=${this.page}`
+        `${URL}?key=${this.key}&q=${this.searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&per_page=${this.perPage}&page=${this.page}`
     );
     this.page += 1;
     return data;
